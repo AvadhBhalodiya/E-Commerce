@@ -16,6 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from main.serializers import CustomJWTSerializer
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
+    path(
+        "login/",
+        TokenObtainPairView.as_view(serializer_class=CustomJWTSerializer),
+    ),
+    path("login/refresh/", TokenRefreshView.as_view()),
 ]
